@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib as mlt
+import matplotlib.pyplot as plt
 
 df = pd.read_csv(r"C:\Users\PRIYANKA\Downloads\Swarm_Behaviour.csv")
 print(df.head(15))
@@ -29,7 +29,7 @@ lr.fit(x_train, y_train)
 y_pred = lr.predict(x_test)
 from sklearn.metrics import confusion_matrix, accuracy_score
 confusion_matrix(y_test,y_pred)
-print("Accuracy: ", accuracy_score(y_test,y_pred))
+print("Logistic Regression Accuracy: ", accuracy_score(y_test,y_pred))
 
 #kNN 
 
@@ -44,12 +44,22 @@ for i in range(1,10):
         best_Kvalue = i
 
 print("Best KNN Value: ",best_Kvalue)
-print("Accuracy: ",best_score)
+print("kNN Accuracy: ",best_score)
 
 #Naive Bayes 
 
 from sklearn.naive_bayes import GaussianNB
 nb = GaussianNB()
 nb.fit(x_train, y_train)
-print("Accuracy: ",nb.score(x_test, y_test))    
+print("Naive Bayes Accuracy: ",nb.score(x_test, y_test))    
         
+#Polynomial Regression
+
+x1 = df.iloc[:,1:2].values
+y1 = df.iloc[:,-1].values
+
+plt.scatter(x1,y1)
+from sklearn.preprocessing import PolynomialFeatures
+poly_reg = PolynomialFeatures(degree=4)
+x_poly = poly_reg.fit_transform(x1)
+x_poly
